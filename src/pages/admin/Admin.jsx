@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 
 const Admin = () => {
 	return (
@@ -58,7 +58,11 @@ const Admin = () => {
 						</NavLink>
 					</li>
 				</ul>
-				<button className='bg-red-500 rounded py-2'>Log Out</button>
+				<Link to={'/'}>
+					<div className='block w-full bg-red-500 rounded cursor-pointer text-center'>
+						<button className='py-2'>Log out</button>
+					</div>
+				</Link>
 			</div>
 			<div className='flex min-h-screen flex-1 p-6'>
 				<Outlet />
