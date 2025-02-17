@@ -1,7 +1,12 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 
 const Popup = ({ onClose }) => {
-	const [edit, setEdit] = useState(null)
+	const carName = useRef(null)
+	const carBrand = useRef(null)
+	const carColor = useRef(null)
+	const carYear = useRef(null)
+	const carBody = useRef(null)
+	const carImage = useRef(null)
 
 	const handleCreateCar = e => {
 		e.preventDefault()
@@ -10,8 +15,8 @@ const Popup = ({ onClose }) => {
 	}
 
 	return (
-		<div className='fixed z-[100] bg-[#eee] w-full h-screen'>
-			<div className='fixed  inset-0 flex items-center justify-center bg-transparent '>
+		<div className='fixed z-50 bg-[#eeeeee7d] w-full h-screen'>
+			<div className='fixed  inset-0 flex items-center justify-center  '>
 				<div className='max-w-md bg-white p-6 rounded-2xl shadow-lg relative'>
 					<button
 						onClick={onClose}

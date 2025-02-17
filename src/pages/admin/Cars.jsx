@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
-import { useGetCarsQuery } from '../../redux/api/car.api'
+import { useDeleteCarMutation, useGetCarsQuery } from '../../redux/api/car.api'
 import Popup from './Popup'
 
 const Cars = () => {
 	const { data } = useGetCarsQuery()
 	const [edit, setEdit] = useState(null)
 
+	const [deleteCar] = useDeleteCarMutation()
+	const handleDeleteCar = id => {
+		deleteCar(id)
+	}
 	return (
 		<div className='flex flex-wrap gap-3'>
 			{data?.map(car => (
