@@ -41,7 +41,10 @@ const Cars = () => {
 						>
 							Delete
 						</button>
-						<button className='w-full bg-green-500 text-white p-2 rounded-md mt-2 hover:bg-green-600 cursor-pointer'>
+						<button
+							onClick={() => setEdit(car)}
+							className='w-full bg-green-500 text-white p-2 rounded-md mt-2 hover:bg-green-600 cursor-pointer'
+						>
 							Edit
 						</button>
 					</div>
