@@ -25,9 +25,22 @@ const extendedApi = mainApi.injectEndpoints({
 			}),
 			invalidatesTags: ['CARS'],
 		}),
+		updateCar: build.mutation({
+			query: updateCar => ({
+				url: `/cars/${id}`,
+				method: 'PUT',
+				body: updateCar,
+			}),
+			invalidatesTags: ['CARS'],
+		}),
 	}),
+
 	overrideExisting: false,
 })
 
-export const { useGetCarsQuery, useCreateCarMutation, useDeleteCarMutation } =
-	extendedApi
+export const {
+	useGetCarsQuery,
+	useCreateCarMutation,
+	useDeleteCarMutation,
+	useUpdateCarMutation,
+} = extendedApi

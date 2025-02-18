@@ -1,79 +1,85 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
+import { useUpdateCarMutation } from '../../redux/api/car.api'
 
-const Popup = ({ onClose }) => {
-	const carName = useRef(null)
-	const carBrand = useRef(null)
-	const carColor = useRef(null)
-	const carYear = useRef(null)
-	const carBody = useRef(null)
-	const carImage = useRef(null)
+const Popup = ({ onClose, car }) => {
+	const [updateCar] = useUpdateCarMutation()
 
-	const handleCreateCar = e => {
+	const [formData, setFormData] = useState({
+		name: car?.name || '',
+		brand: car?.brand || '',
+		color: car?.color || '',
+		year: car?.year || '',
+		image: car?.image || '',
+		CarBody: car?.CarBody || '',
+	})
+
+	const handleChange = e => {
+		setFormData({ ...formData, [e.target.name]: e.target.value })
+	}
+
+	const handleUpdate = async e => {
 		e.preventDefault()
-
+		await updateCar({ id: car.id, ...formData })
 		onClose()
 	}
 
 	return (
-		<div className='fixed z-50 bg-[#eeeeee7d] w-full h-screen'>
-			<div className='fixed  inset-0 flex items-center justify-center  '>
-				<div className='max-w-md bg-white p-6 rounded-2xl shadow-lg relative'>
-					<button
-						onClick={onClose}
-						className='absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full'
-					>
-						Close
-					</button>
+		<div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50'>
+			<div className='bg-white p-6 rounded-lg shadow-lg w-96'>
+				<h2 className='text-xl font-semibold mb-4'>Edit Car</h2>
+				<form onSubmit={handleUpdate} className='space-y-4'>
+					<input
+						name='name'
+						value={formData.name}
+						onChange={handleChange}
+						className='w-full p-2 border'
+					/>
+					<input
+						name='brand'
+						value={formData.brand}
+						onChange={handleChange}
+						className='w-full p-2 border'
+					/>
+					<input
+						name='color'
+						value={formData.color}
+						onChange={handleChange}
+						className='w-full p-2 border'
+					/>
+					<input
+						name='year'
+						value={formData.year}
+						onChange={handleChange}
+						className='w-full p-2 border'
+					/>
+					<input
+						name='CarBody'
+						value={formData.CarBody}
+						onChange={handleChange}
+						className='w-full p-2 border'
+					/>
+					<input
+						name='image'
+						value={formData.image}
+						onChange={handleChange}
+						className='w-full p-2 border'
+					/>
 
-					<h2 className='text-2xl font-semibold text-center mb-4'>
-						Car Details
-					</h2>
-					<form className='space-y-4' onSubmit={handleCreateCar}>
-						<input
-							ref={carName}
-							type='text'
-							placeholder='Car Name'
-							className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
-						/>
-						<input
-							ref={carBrand}
-							type='text'
-							placeholder='Brand'
-							className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
-						/>
-						<input
-							ref={carColor}
-							type='text'
-							placeholder='Color'
-							className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
-						/>
-						<input
-							ref={carYear}
-							type='number'
-							placeholder='Year'
-							className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
-						/>
-						<input
-							ref={carBody}
-							type='text'
-							placeholder='Car Body'
-							className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
-						/>
-						<input
-							ref={carImage}
-							type='text'
-							placeholder='Image URL'
-							className='w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400'
-						/>
-
+					<div className='flex justify-between mt-4'>
 						<button
 							type='submit'
-							className='w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600'
+							className='bg-blue-500 text-white px-4 py-2 rounded'
 						>
 							Save
 						</button>
-					</form>
-				</div>
+						<button
+							onClick={onClose}
+							className='bg-gray-500 text-white px-4 py-2 rounded'
+						>
+							Cancel
+						</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	)

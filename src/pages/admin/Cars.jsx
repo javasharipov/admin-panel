@@ -51,7 +51,7 @@ const Cars = () => {
 				</div>
 			))}
 
-			{edit && <Popup onClose={() => setEdit(null)} />}
+			{edit && <Popup onClose={() => setEdit(null)} car={edit} />}
 		</div>
 	)
 }
